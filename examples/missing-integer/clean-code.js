@@ -1,29 +1,31 @@
-function processAdditions() {
-	return (acc, cur, index) => {
-		let { sumOfElements, sumOfOrders } = acc;
-		sumOfElements += cur;
-		sumOfOrders += index + 1;
-		return { sumOfElements, sumOfOrders };
-	};
+function getPositiveIntegers(A) {
+	return A.filter(a => a > 0);
 }
 
-function addUpArraySum(A) {
-	const initialSums = { sumOfElements: 0, sumOfOrders: 0 };
-	const sumsOfArray = A.reduce(processAdditions(), initialSums);
-	return sumsOfArray;
+function getSortedIntegers(positiveIntegers) {
+	return positiveIntegers.sort((a, b) => a - b);
 }
 
-function getNextOrderOfLast(A) {
-	return A.length + 1;
+function isTheSameNumber(currentInteger, smallestNumber) {
+	return currentInteger === smallestNumber;
 }
 
-function getMissingInteger(A) {
-	const { sumOfElements, sumOfOrders } = addUpArraySum(A);
-	return sumOfOrders + getNextOrderOfLast(A) - sumOfElements;
+function processSmallestInteger(smallestNumber, currentInteger) {
+	return isTheSameNumber(currentInteger, smallestNumber) ? smallestNumber + 1 : smallestNumber;
+}
+
+function getSmallestInteger(sortedPositives) {
+	const initialSmallestInter = 1;
+	return sortedPositives.reduce(processSmallestInteger, initialSmallestInter);
+}
+
+function chainingOperations(operations) {
+	return source => operations.reduce((arr, fun) => fun(arr), source);
 }
 
 function solution(A) {
+	const getMissingInteger = chainingOperations([getPositiveIntegers, getSortedIntegers, getSmallestInteger]);
 	return getMissingInteger(A);
 }
 
-console.log(solution([2, 3, 1, 5]));
+console.log(solution([-1, 3, 2, 1, -3, 5]));

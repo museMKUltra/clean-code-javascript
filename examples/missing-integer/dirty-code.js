@@ -1,15 +1,13 @@
 function solution(A) {
-	const sumsOfArray = A.reduce(
-		(acc, cur, index) => {
-			return {
-				sumOfElements: acc.sumOfElements + cur,
-				sumOfOrders: acc.sumOfOrders + index + 1,
-			};
-		},
-		{ sumOfElements: 0, sumOfOrders: 0 }
-	);
-
-	return sumsOfArray.sumOfOrders + A.length + 1 - sumsOfArray.sumOfElements;
+	const positiveIntegers = A.filter(a => a > 0);
+	const sortedPositives = positiveIntegers.sort((a, b) => a - b);
+	const smallestInteger = sortedPositives.reduce((acc, cur) => {
+		if (cur === acc) {
+			return acc + 1;
+		}
+		return acc;
+	}, 1);
+	return smallestInteger;
 }
 
-console.log(solution([2, 3, 1, 5]));
+console.log(solution([-1, 3, 2, 1, -3, 5]));
