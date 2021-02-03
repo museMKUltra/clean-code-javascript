@@ -17,8 +17,9 @@ function getImpactFactors({ P, Q }, { A, C, G, T }) {
 
 function solution(S, P, Q) {
 	const { A, C, G, T } = getNucleotidePositions(S);
+	const { factors } = getImpactFactors({ P, Q }, { A, C, G, T });
 
-	return getImpactFactors({ P, Q }, { A, C, G, T });
+	return factors;
 }
 
 console.log(solution("CAGCCTA", [2, 5, 0], [4, 5, 6]));
